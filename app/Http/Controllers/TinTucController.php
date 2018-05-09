@@ -65,7 +65,7 @@ class TinTucController extends Controller
     		//echo $duoi;
 			$file->move("public/img/tintuc",$Hinh);
     		$tintuc->Hinh = $Hinh;
-        else{
+        }else{
                 $tintuc->Hinh="";
             }
 

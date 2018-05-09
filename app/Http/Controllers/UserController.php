@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Users;
+use App\Comment;
 class UserController extends Controller
 {
     //
     public function getDanhSach(){
-    	$user = User::paginate(10);
+    	$user = Users::paginate(10);
     	return view('admin.user.danhsach', ['user'=>$user]);
     }
 
@@ -19,7 +20,7 @@ class UserController extends Controller
     public function postThem(Request $req){
     	$this->validate($req,[
     		'ten'=>'required|min:3',
-    		'email'=>'required|unique:User,email',
+    		'email'=>'required|unique:users,email',
     		'pass'=>'required|min:6|max:32', 
     		'repass'=>'required|same:pass'
     	],
@@ -35,8 +36,8 @@ class UserController extends Controller
     		'repass.same'=>'2 password không trùng nhau,'
     	]);
 
-    	$user = new User;
-    	$user->ten = $req->ten;
+    	$user = new Users;
+    	$user->name = $req->ten;	
     	$user->email = $req->email;
     	$user->password = bcrypt($req->password); //mã hóa password
     	$user->quyen = $req->rdoquyen;
@@ -44,5 +45,18 @@ class UserController extends Controller
     	$user->save();
 
     	return redirect('admin/user/them')->with('thongbao','Thêm thành công');
+    }
+
+    public function getSua($id){
+    	$user = Users::find($id);
+    	return view('admin.user.sua',['user'=>$user]);
+    }
+
+    public function getXoa($id){
+    	$user = Users::find($id);
+    	$comment = Comment::where('idUser',$id);
+      	$comment->delete(); 
+    	$user->delete();
+    	return redirect('admin/user/danhsach')->with('thongbao','Xóa thành công');
     }
 }

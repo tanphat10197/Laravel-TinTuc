@@ -12,41 +12,49 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <form action="" method="POST">
+                        @if(count($errors) > 0)
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $err)
+                                    {{ $err }}
+                                @endforeach
+                            </div>
+                        @endif
+
+                        @if(session('thongbao'))
+                            <div class="alert alert-success">
+                                {{ session('thongbao') }}
+                            </div> 
+                        @endif
+                        <form action="admin/user/sua/{{ $user->id}}" method="POST">
+                            {{ csrf_field() }}
                             <div class="form-group">
-                                <label>Category Parent</label>
-                                <select class="form-control">
-                                    <option value="0">Please Choose Category</option>
-                                    <option value="">Tin Tức</option>
-                                </select>
+                                <label>Tên</label>
+                                <input class="form-control" name="ten" placeholder="Nhập tên....." value="{{ $user->name }}" />
                             </div>
                             <div class="form-group">
-                                <label>Category Name</label>
-                                <input class="form-control" name="txtCateName" placeholder="Please Enter Category Name" />
+                                <label>Email</label>
+                                <input class="form-control" name="email" type="email" 
+                                placeholder="Nhập email......" value=" {{ $user->email }}" readonly=""/>
                             </div>
                             <div class="form-group">
-                                <label>Category Order</label>
-                                <input class="form-control" name="txtOrder" placeholder="Please Enter Category Order" />
+                                <input type="checkbox" id="changePassword">
+                                <label>Đổi mật khẩu</label>
+                                <input class="form-control password" name="pass" type="password" placeholder="Nhập password...." disabled=""/>
+                            </div>
+                             <div class="form-group">
+                                <label>Nhập lại Password</label>
+                                <input class="form-control pass" name="repass" type="password" placeholder="Nhập lại password...." disabled=""/>
                             </div>
                             <div class="form-group">
-                                <label>Category Keywords</label>
-                                <input class="form-control" name="txtOrder" placeholder="Please Enter Category Keywords" />
-                            </div>
-                            <div class="form-group">
-                                <label>Category Description</label>
-                                <textarea class="form-control" rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Category Status</label>
+                                <label>Quyền</label>
                                 <label class="radio-inline">
-                                    <input name="rdoStatus" value="1" checked="" type="radio">Visible
+                                    <input name="rdoquyen" value="0" @if($user->quyen == 0) {{ "checked" }} @endif type="radio">Đọc giả
                                 </label>
                                 <label class="radio-inline">
-                                    <input name="rdoStatus" value="2" type="radio">Invisible
+                                    <input name="rdoquyen" value="1" @if($user->quyen == 1) {{ "checked" }} @endif type="radio">Admin
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-default">Category Edit</button>
-                            <button type="reset" class="btn btn-default">Reset</button>
+                            <button type="submit" class="btn btn-default">Thêm</button>
                         <form>
                     </div>
                 </div>
@@ -54,4 +62,21 @@
             </div>
             <!-- /.container-fluid -->
         </div>
+@endsection
+
+@section('script');
+    <script>
+        $(document).ready(function(){
+             $("#changePassword").change(function(){
+                 if($(this).is(":checked"))
+                 {
+                    $(".pass").removeAttr('disabled');
+                 }
+                 else
+                 {
+                    $(".pass").attr('disabled','');
+                 }
+             });
+        });
+    </script>
 @endsection

@@ -93,7 +93,7 @@
                             @foreach($tintuc->comment as $cm)
                                 <tr class="odd gradeX" align="center">
                                     <td>{{ $cm->id }}</td>
-                                    <td>{{ $cm->user->name }}</td>
+                                    <td>{{ $cm->users->name }}</td>
                                     <td>{{ $cm->NoiDung }}</td>
                                     <td>{{ $cm->created_at }}</td>
                                     <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/comment/xoa/{{ $cm->id }}/{{ $tintuc->id }}"> Delete</a></td>
