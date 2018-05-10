@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 //Tạo Route cho Admin
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'],function(){
 	Route::group(['prefix'=>'theloai'], function(){
 		Route::get('danhsach','TheLoaiController@getDanhSach');
 
@@ -78,12 +78,17 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::get('xoa/{id}', 'UserController@getXoa');
 	});
 
-
-
 	Route::group(['prefix'=>'comment'], function(){
 		Route::get('xoa/{id}/{idtintuc}', 'CommentController@getXoa');
 	});
 });
 
+Route::get('admin/dangnhap','UserController@getAdminDangNhap');
+Route::post('admin/dangnhap','UserController@postAdminDangNhap')->name('admin.dangnhap');
+Route::get('admin/dangxuat','UserController@getAdminDangXuat');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

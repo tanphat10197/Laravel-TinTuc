@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Users;
+use App\User;
 use App\Comment;
 class UserController extends Controller
 {
     //
     public function getDanhSach(){
-    	$user = Users::paginate(10);
+    	$user = User::paginate(10);
     	return view('admin.user.danhsach', ['user'=>$user]);
     }
 
@@ -36,11 +37,14 @@ class UserController extends Controller
     		'repass.same'=>'2 password không trùng nhau,'
     	]);
 
-    	$user = new Users;
+    	$user = new User;
     	$user->name = $req->ten;	
     	$user->email = $req->email;
-    	$user->password = bcrypt($req->password); //mã hóa password
+        $user->password = bcrypt($req->pass); //mã hóa password
+    	// $user->password = $req->password; //mã hóa password
     	$user->quyen = $req->rdoquyen;
+
+        // echo $req->password;
 
     	$user->save();
 
@@ -48,15 +52,47 @@ class UserController extends Controller
     }
 
     public function getSua($id){
-    	$user = Users::find($id);
+    	$user = User::find($id);
     	return view('admin.user.sua',['user'=>$user]);
     }
 
     public function getXoa($id){
-    	$user = Users::find($id);
+    	$user = User::find($id);
     	$comment = Comment::where('idUser',$id);
       	$comment->delete(); 
     	$user->delete();
     	return redirect('admin/user/danhsach')->with('thongbao','Xóa thành công');
+    }
+
+    public function getAdminDangNhap(){
+        return view('admin.login');
+    }
+
+    public function postAdminDangNhap(Request $req){
+        $this->validate($req,
+        [
+            'email'=>'required', 
+            'password'=>'required'
+        ],
+        [
+            'email.required'=>'Bạn chưa nhập email', 
+            'password.required'=>'Bạn chưa nhập password'
+        ]
+        );
+        // echo $req->email;
+        // echo $req->password;
+
+       if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'quyen'=>1])){
+            return redirect('admin/theloai/danhsach');
+           
+        }
+        else{
+            return redirect('admin/dangnhap')->with('thongbao','Đăng nhập không thành công');
+        }
+    }
+
+    public function getAdminDangXuat(){
+        Auth::logout();
+        return redirect('admin/dangnhap');
     }
 }

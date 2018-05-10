@@ -53,7 +53,7 @@
                         </li>
 
                         <li>
-                            <a href=""><i class="fa fa-users fa-fw"></i> <b>User</b></a>
+                            <a><i class="fa fa-users fa-fw"></i> <b>User</b></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="admin/user/danhsach">Danh sách user</a>
