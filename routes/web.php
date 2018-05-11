@@ -92,3 +92,8 @@ Route::get('admin/dangxuat','UserController@getAdminDangXuat');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//ROUTE TRANG CHỦ-------------------------
+Route::get('trangchu', 'PageController@trangchu');
+Route::get('lienhe', 'PageController@lienhe');
