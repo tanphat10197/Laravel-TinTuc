@@ -97,3 +97,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 //ROUTE TRANG CHỦ-------------------------
 Route::get('trangchu', 'PageController@trangchu');
 Route::get('lienhe', 'PageController@lienhe');
+
+//ROUTE LOAI TIN
+Route::get('loaitin/{id}/{TenKhongDau}.html','PageController@loaitin');
