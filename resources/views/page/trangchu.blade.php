@@ -46,7 +46,7 @@
 					                    <div class="col-md-7">
 					                        <h3>{{ $tin1['TieuDe'] }}</h3>
 					                        <p>{{ $tin1['TomTat'] }}</p>
-					                        <a class="btn btn-primary" href="detail.html">Chi tiết<span class="glyphicon glyphicon-chevron-right"></span></a>
+					                        <a class="btn btn-primary" href="tintuc/{{ $tin1['id'] }}/{{ $tin1['TieuDeKhongDau'] }}.html">Chi tiết<span class="glyphicon glyphicon-chevron-right"></span></a>
 										</div>
 
 				                	</div>
@@ -54,7 +54,7 @@
 
 									<div class="col-md-4">
 										@foreach($data as $dt)
-											<a href="detail.html">
+											<a href="tintuc/{{ $dt->id }}/{{ $dt->TieuDeKhongDau }}.html">
 												<h4>
 													<span class="glyphicon glyphicon-list-alt"></span>
 													{{ $dt->TieuDe }}

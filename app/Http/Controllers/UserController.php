@@ -82,9 +82,11 @@ class UserController extends Controller
         // echo $req->email;
         // echo $req->password;
 
-       if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'quyen'=>1])){
-            return redirect('admin/theloai/danhsach');
-           
+        if (Auth::attempt(['email' => $req->email, 'password' => $req->password, 'quyen'=>1])){
+            return redirect('admin/theloai/danhsach');           
+        }
+        else if(Auth::attempt(['email' => $req->email, 'password' => $req->password, 'quyen'=>0])){
+             return redirect('trangchu');
         }
         else{
             return redirect('admin/dangnhap')->with('thongbao','Đăng nhập không thành công');
@@ -93,6 +95,6 @@ class UserController extends Controller
 
     public function getAdminDangXuat(){
         Auth::logout();
-        return redirect('admin/dangnhap');
+        return redirect('trangchu');
     }
 }

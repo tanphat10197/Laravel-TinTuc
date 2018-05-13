@@ -83,9 +83,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>'adminlogin'],function(){
 	});
 });
 
-Route::get('admin/dangnhap','UserController@getAdminDangNhap');
-Route::post('admin/dangnhap','UserController@postAdminDangNhap')->name('admin.dangnhap');
-Route::get('admin/dangxuat','UserController@getAdminDangXuat');
+Route::get('dangnhap','UserController@getAdminDangNhap');
+Route::post('dangnhap','UserController@postAdminDangNhap')->name('admin.dangnhap');
+Route::get('dangxuat','UserController@getAdminDangXuat');
 
 
 
@@ -100,3 +100,6 @@ Route::get('lienhe', 'PageController@lienhe');
 
 //ROUTE LOAI TIN
 Route::get('loaitin/{id}/{TenKhongDau}.html','PageController@loaitin');
+//ROUTE TIN TUC
+Route::get('tintuc/{id}/{TenKhongDau}.html','PageController@tintuc');
+Route::post('comment/{id}', 'CommentController@postComment');

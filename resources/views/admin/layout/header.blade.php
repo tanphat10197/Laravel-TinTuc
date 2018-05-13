@@ -23,7 +23,7 @@
                             <li><a href="admin/user/sua/{{ Auth::user()->id }}"><i class="fa fa-gear fa-fw"></i>Chi tiết</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="admin/dangxuat"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a>
+                            <li><a href="dangxuat"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a>
                             </li>
                         @endif
                     </ul>

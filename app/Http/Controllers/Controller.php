@@ -11,11 +11,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    function __construct()
+    public function __construct()
     {
     	$this->dangnhap();
     }
-    function dangnhap()
+    public function dangnhap()
     {
     	if(Auth::check()){
     		view()->share('user_login',Auth::user());

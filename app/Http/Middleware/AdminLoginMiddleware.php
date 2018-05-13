@@ -17,7 +17,11 @@ class AdminLoginMiddleware
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            return $next($request); 
+            $user = Auth::user();
+            if($user->quyen == 1)
+                return $next($request); 
+            else
+                return redirect('trangchu');
         }
         else{
             return redirect('admin/dangnhap');
